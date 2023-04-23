@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Upload Pictures</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='upload.css') }}">
+    <style>
+      .preview-container img {
+        max-height: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Upload Pictures</h1>
+    <form action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data">
+      <input type="text" name="name" placeholder="Enter person's name">
+      <input type="file" name="files[]" id="file" multiple onchange="previewFile()">
+      <button type="submit">Upload</button>
+    </form>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class="flashes">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+    <h2>Picture Preview</h2>
+    <div class="preview-container"></div>
+    <script>
+      function previewFile() {
+        const previewContainer = document.querySelector('.preview-container');
+        const fileInput = document.querySelector('input[type=file]');
+
+        // Clear existing previews
+        previewContainer.innerHTML = '';
+
+        for (const file of fileInput.files) {
+          const reader = new FileReader();
+          reader.addEventListener("load", function () {
+            const preview = document.createElement('img');
+            preview.src = reader.result;
+            previewContainer.appendChild(preview);
+          }, false);
+
+          reader.readAsDataURL(file);
+        }
+      }
+    </script>
+    <ul>
+      <li><a href="{{ url_for('index') }}">Back</a></li>
+      <!-- Add links to other pages of your Flask app here -->
+    </ul>
+  </body>
+</html>

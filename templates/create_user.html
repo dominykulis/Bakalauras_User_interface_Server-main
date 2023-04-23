@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Create a new user</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='create_user.css') }}">
+
+  </head>
+  <body>
+    <h1>Create a new user</h1>
+    <form action="{{ url_for('add_user') }}" method="post">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required><br>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required><br>
+
+      <button type="submit">Create a new user</button>
+    </form>
+    <ul>
+      <li><a href="{{ url_for('index') }}">Back</a></li>
+      <!-- Add links to other pages of your Flask app here -->
+    </ul>
+  </body>
+</html>

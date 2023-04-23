@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+  <head>
+</head>
+  <head>
+    <title>Gallery</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='gallery.css') }}">
+    <style>
+      .image-container {
+        display: inline-block;
+        margin: 10px;
+        text-align: center;
+      }
+      .image-container img {
+        height: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Gallery</h1>
+    {% if image_names %}
+      {% for name, image_files in image_names.items() %}
+      <h2>{{ name }}</h2>
+      <div class="image-container">
+          {% for filename in image_files %}
+              <img class="image" src="{{ url_for('static', filename='uploads/'+name+'/'+filename) }}">
+          {% endfor %}
+      </div>
+      {% endfor %}
+    {% else %}
+      <p>No images found.</p>
+    {% endif %}
+    <ul>
+      <li><a href="{{ url_for('index') }}">Back</a></li>
+      <li><a href="{{ url_for('upload_file') }}">Upload Pictures</a></li>
+      <!-- Add links to other pages of your Flask app here -->
+    </ul>
+  </body>
+</html>
