@@ -1,20 +1,8 @@
 <!doctype html>
 <html>
   <head>
-</head>
-  <head>
     <title>Gallery</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='gallery.css') }}">
-    <style>
-      .image-container {
-        display: inline-block;
-        margin: 10px;
-        text-align: center;
-      }
-      .image-container img {
-        height: 200px;
-      }
-    </style>
   </head>
   <body>
     <h1>Gallery</h1>
@@ -23,7 +11,12 @@
       <h2>{{ name }}</h2>
       <div class="image-container">
           {% for filename in image_files %}
-              <img class="image" src="{{ url_for('static', filename='uploads/'+name+'/'+filename) }}">
+          <div class="image-item">
+            <img class="image" src="{{ url_for('static', filename='uploads/'+name+'/'+filename) }}">
+            <form method="POST" action="{{ url_for('delete_image', filename=name+'/'+filename) }}">
+              <button type="submit" class="delete-button">Delete</button>
+            </form>
+          </div>
           {% endfor %}
       </div>
       {% endfor %}

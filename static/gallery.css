@@ -80,21 +80,21 @@ body {
   .image-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    margin-top: 50px;
+    justify-content: left;
+    margin: 10px;
   }
-  
+  .image-container .image-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+    text-align: center;
+  }
   .image-container img {
     height: 200px;
-    margin: 10px;
-    border-radius: 4px;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
   }
-  
-  .image-container img:hover {
-    transform: scale(1.1);
+  .image-container .delete-button {
+    margin-top: 10px;
   }
   
   /* Responsive styles */

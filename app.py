@@ -169,14 +169,12 @@ def gallery():
 
     return render_template("gallery.html", image_names=image_names,os=os,app=app)
 
-@app.route('/delete_image/<filename>', methods=['POST'])
+@app.route('/delete_image/<path:filename>', methods=['POST'])
 @login_required
 def delete_image(filename):
-
     try:
         os.remove(os.path.join('static/uploads', filename))
         return redirect(url_for('gallery'))
-    
     except:
         return "Error deleting file"
     
