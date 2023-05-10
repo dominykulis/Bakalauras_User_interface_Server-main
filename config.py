@@ -1,0 +1,2 @@
+ADMIN_USERNAME = "domas"
+ADMIN_PASSWORD = "domas"
