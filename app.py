@@ -7,7 +7,7 @@ import os
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///example.db'  # Replace with your preferred database URI
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'  
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
