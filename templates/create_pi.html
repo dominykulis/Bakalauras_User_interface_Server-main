@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Enter Credentials</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='create_pi.css') }}">
+
+  </head>
+  <body>
+    <h1>Enter Credentials</h1>
+    <form method="POST" action="/">
+      <label for="hostname">Hostname:</label>
+      <input type="text" id="hostname" name="hostname" required><br><br>
+      
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required><br><br>
+      
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required><br><br>
+      
+      <button type="submit">Create a new Pi</button>
+    </form>
+    <ul>
+        <li><a href="{{ url_for('index') }}">Back</a></li>
+        <!-- Add links to other pages of your Flask app here -->
+      </ul>
+  </body>
+</html>

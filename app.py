@@ -178,5 +178,21 @@ def delete_image(filename):
     except:
         return "Error deleting file"
     
+@app.route('/create_pi', methods=['GET', 'POST'])
+def creation():
+    if request.method == 'POST':
+        hostname = request.form['hostname']
+        username = request.form['username']
+        password = request.form['password']
+        
+        # Your logic here
+        
+        return f'Hostname: {hostname}<br>Username: {username}<br>Password: {password}'
+    
+    return render_template('create_pi.html')
+
+if __name__ == '__main__':
+    app.run()
+
 if __name__ == '__main__':
     app.run(debug=True)
