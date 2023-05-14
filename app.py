@@ -41,6 +41,12 @@ c.execute('''CREATE TABLE IF NOT EXISTS raspi
               username TEXT NOT NULL,
               password TEXT NOT NULL);''')
 
+c.execute('''CREATE TABLE IF NOT EXISTS users
+    (id INTEGER PRIMARY KEY AUTOINCREMENT,
+    lock_id INTEGER,
+    name TEXT NOT NULL,
+    FOREIGN KEY (lock_id) REFERENCES raspi(id));''')
+
 # Save (commit) the changes
 conn.commit()
 
@@ -212,6 +218,7 @@ def gallery():
 def delete_image(name, filename):
     try:
         os.remove(os.path.join(app.config['UPLOAD_FOLDER'], name, filename))
+
         flash('Image deleted successfully.', 'success')
 
     except Exception as e:
@@ -220,7 +227,7 @@ def delete_image(name, filename):
 
     return redirect(url_for('gallery'))
 
-@app.route('/create_pi', methods=['GET', 'POST'])
+@app.route('/add_lock', methods=['GET', 'POST'])
 @login_required
 def creation():
     if request.method == 'POST':
@@ -242,7 +249,7 @@ def creation():
         conn.close()
         flash('Lock added Successfully', 'error')
     
-    return render_template('create_pi.html')
+    return render_template('add_lock.html')
 
 @app.route('/delete_record/<int:id>', methods=['POST'])
 @login_required
@@ -264,6 +271,11 @@ def delete_directory():
     if request.method == 'POST':
         # Get the name of the directory to delete from the form
         directory_name = request.form['directory_name']
+
+        # conn = sqlite3.connect(DATABASE)
+        # c = conn.cursor()
+        # c.execute("SELECT * FROM users WHERE name=?", (directory_name))
+        
         
         if directory_name in existing_directories:
             # Remove the directory and all its contents
@@ -278,10 +290,14 @@ def delete_directory():
 @app.route('/run-command', methods=['GET', 'POST'])
 @login_required
 def run_command():
+    error_check = 0
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
     if request.method == 'POST':
+        conn = sqlite3.connect(DATABASE)
+        c = conn.cursor()
+
         # Get the selected directory from the form
         selected_host = request.form['host']
 
@@ -294,17 +310,27 @@ def run_command():
 
         try:
             # Connect to the selected host from the dropdown menu
-            conn = sqlite3.connect(DATABASE)
-            c = conn.cursor()
+            
             c.execute("SELECT hostname, username, password FROM raspi WHERE hostname=?", (selected_host,))
             host_data = c.fetchone()
             if host_data is None:
                 flash(f'Invalid host selected!', 'error')
                 return redirect(url_for('run_command'))
             else:
-                hostname, username, password = host_data
-                ssh.connect(hostname, username=username, password=password)
-        
+                c.execute("SELECT * FROM users WHERE lock_id=? AND name=?", (selected_host, selected_dir))
+                check_data = c.fetchone()
+                if check_data is None:
+                    hostname, username, password = host_data
+
+                    c.execute("INSERT INTO users (name, lock_id) VALUES (?, ?)", (selected_dir, selected_host))
+                    conn.commit()
+                    
+                    ssh.connect(hostname, username=username, password=password)
+
+                else:
+                    flash(f'User already has access!', 'error')
+                    return redirect(url_for('run_command'))
+
             # Copy the directory to the Raspberry Pi using SCP
             with SCPClient(ssh.get_transport()) as scp:
                 scp.put(source_path, destination_path, recursive=True)
@@ -321,6 +347,7 @@ def run_command():
                         flash(f'Error running script to initialize file named:{file_name} The error is: {error}', 'error')
                     else:
                         flash(f'Script {file_name} executed successfully: {output}', 'success')
+                        
 
         except Exception as e:
             flash(f'Error: {str(e)}', 'error')
@@ -331,12 +358,15 @@ def run_command():
             ssh.close()
 
     # Get a list of existing hosts in the raspi table
+    
     conn = sqlite3.connect(DATABASE)
     c = conn.cursor()
     c.execute("SELECT hostname, username FROM raspi")
     hostnames = c.fetchall()
+
     conn.close()
     directories = [d for d in os.listdir(app.config['UPLOAD_FOLDER']) if os.path.isdir(os.path.join(app.config['UPLOAD_FOLDER'], d))]
+
     return render_template('run_command.html', hostnames=hostnames, directories=directories)
 
 @app.route('/database')
@@ -352,6 +382,20 @@ def database():
     conn.close()
 
     return render_template('database.html', credentials=credentials)
+
+@app.route('/user_database')
+def user_database():
+    conn = sqlite3.connect(DATABASE)
+    c = conn.cursor()
+
+    # select all credentials
+    c.execute("SELECT * FROM users")
+    credentials = c.fetchall()
+
+    # close connection
+    conn.close()
+
+    return render_template('user_database.html', credentials=credentials)
 
 if __name__ == '__main__':
     app.run(debug=True)
