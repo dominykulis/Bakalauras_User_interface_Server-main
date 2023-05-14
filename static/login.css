@@ -1,9 +1,8 @@
 body {
-  background-image: url('https://archello.s3.eu-central-1.amazonaws.com/images/2017/01/19/55-35.1506083400.8951.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  height: 100%;
-  width: 100%;
+    background-image: url('https://images.pexels.com/photos/2097616/pexels-photo-2097616.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
   

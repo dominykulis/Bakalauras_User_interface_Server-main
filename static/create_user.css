@@ -1,17 +1,16 @@
 /* CSS for Create User Page */
 
 body {
-  background-image: url('https://kgcgroup.com/home/wp-content/uploads/2021/02/2.jpg');
+  background-image: url('https://images.pexels.com/photos/2097616/pexels-photo-2097616.jpeg');
   background-size: cover;
   background-repeat: no-repeat;
-  height: 100%;
-  width: 100%;
+  background-position: center;
 }
 
 h1 {
   text-align: center;
   margin-top: 50px;
-  color: #ffffff;
+  color: #000000;
 }
 
 form {

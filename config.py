@@ -1,2 +1,2 @@
-ADMIN_USERNAME = "domas"
-ADMIN_PASSWORD = "domas"
+ADMIN_USERNAME = "admin"
+ADMIN_PASSWORD = "facerec"
