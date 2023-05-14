@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Database</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='database.css') }}">
+  </head>
+  <body>
+    <h1>List of Locks</h1>
+    {% if credentials %}
+      <table>
+        <tr>
+          <th>Hostname</th>
+          <th>Username</th>
+          <th>Password</th>
+          <th>Action</th>
+        </tr>
+        {% for credential in credentials %}
+        <tr>
+          <td>{{ credential[1] }}</td>
+          <td>{{ credential[2] }}</td>
+          <td>{{ credential[3] }}</td>
+          <td>
+            <form action="{{ url_for('delete_record', id=credential[0]) }}" method="POST">
+              <input type="submit" class="delete-button" value="Delete">
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+    {% else %}
+      <p>No credentials found.</p>
+    {% endif %}
+    <ul>
+      <li><a href="{{ url_for('index') }}">Back</a></li>
+      <li><a href="{{ url_for('creation') }}">Add Lock</a></li>
+    </ul>
+  </body>
+</html>

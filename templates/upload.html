@@ -13,7 +13,11 @@
   <body>
     <h1>Upload Pictures</h1>
     <form action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data">
-      <input type="text" name="name" placeholder="Enter person's name">
+      <select name="name">
+        {% for directory in directories %}
+        <option value="{{ directory }}">{{ directory }}</option>
+        {% endfor %}
+      </select>
       <input type="file" name="files[]" id="file" multiple onchange="previewFile()">
       <button type="submit">Upload</button>
     </form>

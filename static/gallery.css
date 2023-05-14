@@ -75,28 +75,6 @@ body {
     color: #fff;
   }
   
-  /* Gallery styles */
-  
-  .image-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: left;
-    margin: 10px;
-  }
-  .image-container .image-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 10px;
-    text-align: center;
-  }
-  .image-container img {
-    height: 200px;
-  }
-  .image-container .delete-button {
-    margin-top: 10px;
-  }
-  
   /* Responsive styles */
   
   @media screen and (max-width: 768px) {
@@ -133,9 +111,46 @@ body {
       padding: 6px 12px;
     }
     
-    .image-container img {
-      height: 120px;
-      margin: 3px;
-    }
+    .image-container {
+  display: block; /* Updated */
+  margin: 10px;
+}
   }
+.image-item {
+  display: inline-block; /* Updated */
+  margin: 10px;
+  text-align: center;
+  position: relative;
+}
+
+.image-item img {
+  height: 200px;
+  margin-bottom: 10px;
+}
+  
+  .image-item form {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .image-item form input[type="submit"] {
+    padding: 5px 10px;
+    background-color: #f44336;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .image-item form input[type="submit"]:hover {
+    background-color: #000000;
+  }
+  /* Add margin between images and delete button */
+.image-container .image-item {
+  margin-bottom: 40px;
+}
   

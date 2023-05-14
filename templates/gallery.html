@@ -1,21 +1,32 @@
 <!doctype html>
 <html>
   <head>
+    
     <title>Gallery</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='gallery.css') }}">
   </head>
   <body>
     <h1>Gallery</h1>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul class="flashes">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+          {% endif %}
+          {% endwith %}
     {% if image_names %}
       {% for name, image_files in image_names.items() %}
       <h2>{{ name }}</h2>
       <div class="image-container">
           {% for filename in image_files %}
           <div class="image-item">
-            <img class="image" src="{{ url_for('static', filename='uploads/'+name+'/'+filename) }}">
-            <form method="POST" action="{{ url_for('delete_image', filename=name+'/'+filename) }}">
-              <button type="submit" class="delete-button">Delete</button>
-            </form>
+              <img class="image" src="{{ url_for('static', filename='uploads/'+name+'/'+filename) }}">
+
+              <form action="{{ url_for('delete_image', name=name,filename=filename) }}" method="POST">
+                <input type="submit" value="Delete">
+              </form>
           </div>
           {% endfor %}
       </div>

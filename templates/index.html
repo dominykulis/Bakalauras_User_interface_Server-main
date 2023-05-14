@@ -30,11 +30,27 @@
   <p>Welcome, {{ username }}!</p>
   <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
   <ul>
+    <h1>User Managment</h1>
+    <li><a href="{{ url_for('add_user') }}">Add New User</a></li>
     <li><a href="{{ url_for('upload_file') }}">Upload Image</a></li>
-    <li><a href="{{ url_for('gallery') }}">Image Gallery</a></li>
-    <li><a href="{{ url_for('add_user') }}">Add new user</a></li>
-    <li><a href="{{ url_for('creation') }}">Create Pi</a></li>
+    <li><a href="{{ url_for('delete_directory') }}">Delete User</a></li>
     <!-- Add links to other pages of your Flask app here -->
   </ul>
+
+  <ul>
+    <li><a href="{{ url_for('gallery') }}">Image Gallery</a></li>
+  </ul>
+
+  <ul>
+    <h1>Lock Managment</h1>
+    <li><a href="{{ url_for('creation') }}">Add Lock</a></li>
+    <li><a href="{{ url_for('run_command') }}">Run Command</a></li>
+    
+  </ul>
+  <ul>
+    <li><a href="{{ url_for('database') }}">Lock List</a></li>
+  </ul>
+   
+  
 </body>
 </html>

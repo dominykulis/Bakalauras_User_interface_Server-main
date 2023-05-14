@@ -1,0 +1,123 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    background-image: url('https://images.pexels.com/photos/2097616/pexels-photo-2097616.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  
+  h1 {
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    font-size: 54px;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    color: #000000;
+    text-shadow: 2px 2px 2px rgba(255, 255, 255, 0.5);
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .form-group {
+    width: 100%;
+    max-width: 250px;
+  }
+  
+  label {
+    color: #000000;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+  
+  select {
+    width: 100%;
+    max-width: 250px;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    padding: 5px;
+    margin-top: 15px;
+    color: #000000;
+    margin-bottom: 10px;
+    background-color: #ffffff;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    appearance: none;
+    background-image: linear-gradient(to bottom, #ffffff, #eaeaea);
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+  }
+  
+  select:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  select:focus {
+    outline: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  ul {
+    margin-top: 20px; /* Adjust the margin-top as needed */
+    text-align: center;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+  }
+  
+  li {
+    display: inline-block;
+    margin-right: 20px;
+  }
+  
+  li:last-child {
+    margin-right: 0;
+  }
+  
+  a {
+    display: block;
+    padding: 20px;
+    background-color: #0a0000;
+    color: #fff;
+    font-size: 1.4rem;
+    text-decoration: none;
+    border-radius: 10px;
+    border: 3px solid #ffffff;
+    box-shadow: 0 2px 5px rgb(0, 0, 0, 0.3);
+    transition: all 0.3s ease-in-out;
+  }
+  
+  a:hover {
+    background-color: #333;
+    color: #fff;
+  }
+
+  input[type="submit"] {
+    padding: 10px 20px;
+    background-color: #000000;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  input[type="submit"]:hover {
+    background-color: #23527c;
+  }
+  

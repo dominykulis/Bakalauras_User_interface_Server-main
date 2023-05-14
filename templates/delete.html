@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Delete Directory</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='delete.css') }}">
+  </head>
+  <body>
+    <h1>Delete Directory</h1>
+    <form action="{{ url_for('delete_directory') }}" method="post">
+      <label for="directory_name">Select directory to delete:</label>
+      <select id="directory_name" name="directory_name">
+        {% for directory in directories %}
+        <option value="{{ directory }}">{{ directory }}</option>
+        {% endfor %}
+      </select>
+      <button type="submit">Delete</button>
+    </form>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class="flashes">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+    <ul>
+      <li><a href="{{ url_for('index') }}">Back</a></li>
+      <!-- Add links to other pages of your Flask app here -->
+    </ul>
+  </body>
+</html>

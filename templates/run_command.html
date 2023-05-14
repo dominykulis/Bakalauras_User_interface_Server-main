@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Create a new user</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='run_command.css') }}">
+
+  </head>
+  <body>
+{% block content %}
+<h1>Run Command</h1>
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class="flashes">
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+
+<form method="post" action="{{ url_for('run_command') }}">
+    <div class="form-group">
+      <label for="host">Select Lock:</label>
+      <select class="form-control" id="host" name="host">
+        {% for hostname, username in hostnames %}
+        <option value="{{ hostname }}">{{ username }}@{{ hostname }}</option>
+        {% endfor %}
+      </select>
+
+    <label for="directory">Directory:</label>
+    <select name="directory" id="directory">
+        {% for directory in directories %}
+            <option value="{{ directory }}">{{ directory }}</option>
+        {% endfor %}
+    </select>
+
+    <input type="submit" value="Run Command">
+</form>
+
+{% endblock %}
+<ul>
+    <li><a href="{{ url_for('index') }}">Back</a></li>
+    <!-- Add links to other pages of your Flask app here -->
+  </ul>
+</body>
+</html>
